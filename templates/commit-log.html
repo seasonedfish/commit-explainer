@@ -3,10 +3,13 @@
 {% block content %}
     <h1>Commit log</h1>
 
-    <ol>
+    <table>
     {% for sha, commit_message in commit_messages.items() %}
-        <li>{{ commit_message.title }}</li>
+        <tr>
+            <td>{{ sha[:7] }}</td>
+            <td>{{ commit_message.title }}</td>
+        </tr>
     {% endfor %}
-    </ol>
+    </table>
 
 {% endblock %}
