@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>commit log</h1>
+
+    <ol>
+    {% for commit_message in commit_messages %}
+        <li>{{ commit_message }}</li>
+    {% endfor %}
+    </ol>
+
+{% endblock %}
