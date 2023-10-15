@@ -4,8 +4,8 @@
     <h1>commit log</h1>
 
     <ol>
-    {% for commit_message in commit_messages %}
-        <li>{{ commit_message }}</li>
+    {% for sha, commit_message in commit_messages.items() %}
+        <li>{{ commit_message.title }}</li>
     {% endfor %}
     </ol>
 
