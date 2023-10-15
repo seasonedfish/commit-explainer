@@ -8,8 +8,7 @@ import os
 @dataclass()
 class CommitMessage:
     ai_generated: bool
-    title: str
-    body: str
+    summary: str
 
 
 def generate_commit_messages(repo_path: str) -> dict[CommitMessage]:
@@ -40,18 +39,13 @@ def query_gpt(prompt) -> str:
         return f"Error: {response.status_code}"
 
 
-def good_commit(difference):
-    return query_gpt(f"Summarize the code diff in a medium sized paragraph\n{difference}")
+def summarize_commit(difference) -> str:
+    return query_gpt(f"Summarize the code changes for this diff:\n{difference}")
 
 
-def bad_commit(difference):
-    return query_gpt(f"Summarize the code diff in a 8 words or less\n{difference}"), query_gpt(
-        f"Summarize the code diff in a medium sized paragraph\n{difference}")
-
-
-def generate_commit_message(message, difference) -> CommitMessage:
-    goodness = query_gpt(f"respond with only True or False, is {message} a good description for\n{difference}")
+def generate_commit_message(summary, difference) -> CommitMessage:
+    goodness = query_gpt(f"Respond with only True or False, is {summary} a good description for this diff:\n{difference}")
     if goodness == "True":
-        return CommitMessage(True, message, good_commit(difference))
+        return CommitMessage(True, summary)
     else:
-        return CommitMessage(False, *bad_commit(difference))
+        return CommitMessage(False, summarize_commit(difference))
