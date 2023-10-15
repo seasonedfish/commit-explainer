@@ -4,10 +4,16 @@
     <h1>Select a repo</h1>
 
     <form action="/commit-log" method="get">
-        <label>
-            Enter repo path:
-            <input type="text" id="repo-path" name="repo-path"/>
-        </label>
+        <div>
+            <label>
+                Enter repo path:
+                <input type="text" id="repo-path" name="repo-path"/>
+            </label>
+        </div>
+
+        <div>
+            <button type="submit">Submit</button>
+        </div>
     </form>
 
 {% endblock %}
