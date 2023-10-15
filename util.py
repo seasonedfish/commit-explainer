@@ -46,6 +46,6 @@ def summarize_commit(difference) -> str:
 def generate_commit_message(summary, difference) -> CommitMessage:
     goodness = query_gpt(f"Respond with only True or False, is {summary} a good description for this diff:\n{difference}")
     if goodness == "True":
-        return CommitMessage(True, summary)
+        return CommitMessage(ai_generated=False, summary=summary)
     else:
-        return CommitMessage(False, summarize_commit(difference))
+        return CommitMessage(ai_generated=True, summary=summarize_commit(difference))
