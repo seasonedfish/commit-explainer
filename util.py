@@ -17,4 +17,3 @@ def generate_commit_messages(repo_path: str) -> dict[CommitMessage]:
         )
         for commit in repo.iter_commits("master", max_count=50)
     }
-
