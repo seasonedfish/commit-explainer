@@ -7,7 +7,9 @@
     {% for sha, commit_message in commit_messages.items() %}
         <tr>
             <td>{{ sha[:7] }}</td>
-            <td>{{ commit_message.summary }}</td>
+            <td>
+                {{ commit_message.summary }}
+            </td>
         </tr>
     {% endfor %}
     </table>

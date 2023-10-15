@@ -11,10 +11,10 @@ class CommitMessage:
     summary: str
 
 
-def generate_commit_messages(repo_path: str) -> dict[CommitMessage]:
+def generate_commit_messages(repo_path: str) -> dict:
     repo = Repo(repo_path)
     return {
-        commit.hexsha: generate_commit_message(commit.summary, repo.git.diff(commit.hexsha, "-p"))
+        commit.hexsha: generate_commit_message(repo.git.diff_tree("-p", commit.hexsha))
         for commit in repo.iter_commits("master", max_count=2)
     }
 
@@ -40,12 +40,8 @@ def query_gpt(prompt) -> str:
 
 
 def summarize_commit(difference) -> str:
-    return query_gpt(f"Summarize the code changes for this diff:\n{difference}")
+    return query_gpt(f"Provide a one line summary of the following commit described by this diff:\n{difference}")
 
 
-def generate_commit_message(summary, difference) -> CommitMessage:
-    goodness = query_gpt(f"Respond with only True or False, is {summary} a good description for this diff:\n{difference}")
-    if goodness == "True":
-        return CommitMessage(ai_generated=False, summary=summary)
-    else:
-        return CommitMessage(ai_generated=True, summary=summarize_commit(difference))
+def generate_commit_message(difference) -> CommitMessage:
+    return CommitMessage(ai_generated=True, summary=summarize_commit(difference))
