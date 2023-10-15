@@ -12,10 +12,10 @@ def index():
     return flask.render_template("index.html")
 
 
-@app.route("/commit-log", methods=["POST"])
+@app.route("/commit-log", methods=["GET"])
 def commit_log():
-    data = flask.request.form
+    path = flask.request.args.get("repo-path")
     return flask.render_template(
         "commit-log.html",
-        commit_messages=util.generate_commit_messages(data["repo-path"])
+        commit_messages=util.generate_commit_messages(path)
     )
