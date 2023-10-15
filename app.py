@@ -13,9 +13,10 @@ def index():
 
 
 @app.route("/commits-explained", methods=["GET"])
-def commits_explained():
+async def commits_explained():
     path = flask.request.args.get("repo-path")
+    commit_messages = await util.generate_commit_messages(path)
     return flask.render_template(
         "commits-explained.html",
-        commit_messages=util.generate_commit_messages(path)
+        commit_messages=commit_messages
     )
