@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Commit Explainer</title>
+    <link rel="manifest" href="{{ url_for('static',filename='manifest.json') }}" />
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='new.min.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='night.css') }}">
+
     <style>
-        html {
-            font-family: "IBM Plex Sans", sans-serif;
+        :root {
+            font-family: "SF Pro", sans-serif;
         }
         h1 {
-            background-color: #E1ECE3;
             font-size: 3rem;
         }
         .commit-table td:nth-child(1) {
