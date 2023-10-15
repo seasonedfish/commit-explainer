@@ -15,7 +15,7 @@ def generate_commit_messages(repo_path: str) -> dict:
     repo = Repo(repo_path)
     return {
         commit.hexsha: generate_commit_message(repo.git.diff_tree("-p", commit.hexsha))
-        for commit in repo.iter_commits("master", max_count=2)
+        for commit in repo.iter_commits("master", max_count=3)
     }
 
 
