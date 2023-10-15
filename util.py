@@ -41,16 +41,16 @@ def query_gpt(prompt) -> str:
 
 
 def good_commit(difference):
-    return query_gpt('Summarize the code diff in a medium sized paragraph' + difference)
+    return query_gpt(f"Summarize the code diff in a medium sized paragraph\n{difference}")
 
 
 def bad_commit(difference):
-    return query_gpt('Summarize the code diff in a 8 words or less' + difference), query_gpt(
-        'Summarize the code diff in a medium sized paragraph ' + difference)
+    return query_gpt(f"Summarize the code diff in a 8 words or less\n{difference}"), query_gpt(
+        f"Summarize the code diff in a medium sized paragraph\n{difference}")
 
 
 def generate_commit_message(message, difference) -> CommitMessage:
-    goodness = query_gpt('respond with only True or False, is' + message + 'a good description for' + difference)
+    goodness = query_gpt(f"respond with only True or False, is {message} a good description for\n{difference}")
     if goodness == "True":
         return CommitMessage(True, message, good_commit(difference))
     else:
