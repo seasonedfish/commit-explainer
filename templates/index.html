@@ -12,8 +12,27 @@
         </div>
 
         <div>
-            <button type="submit">Submit</button>
+            <button type="submit" id="submit">Submit</button>
+            <progress id="progress" aria-label="Loading explanations..." style="display: none"></progress>
         </div>
     </form>
+
+    <script>
+    function handleSubmitButtonPressed() {
+        let progress = document.getElementById("progress")
+        progress.style.display = "block"
+
+        let submit = document.getElementById("submit")
+        submit.style.display = "none"
+    }
+    document.getElementById("submit").addEventListener("click", handleSubmitButtonPressed)
+
+    // https://stackoverflow.com/a/48647728
+    window.onpageshow = function (event) {
+        if (event.persisted) {
+            window.location.reload(); //reload page if it has been loaded from cache
+        }
+    };
+    </script>
 
 {% endblock %}
