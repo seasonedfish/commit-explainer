@@ -19,7 +19,7 @@ async def generate_commit_messages(repo_path: str):
     repo = Repo(repo_path)
     diffs = {
         commit.hexsha: repo.git.diff_tree("-p", commit.hexsha)
-        for commit in repo.iter_commits("master", max_count=10)
+        for commit in repo.iter_commits("master", max_count=5)
     }
     summaries = await asyncio.gather(*(summarize_commit(diff) for _, diff in diffs.items()))
     return {
